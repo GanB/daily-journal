@@ -1,156 +1,128 @@
-const journalEntries = [
-  {
-    id: 1,
-    date: "08/01/2022",
-    concept: "HTML 5 and CSS Styling",
-    entry: "I was learning about CSS styling selectors",
-    mood: "Happy",
-  },
-  {
-    id: 2,
-    date: "08/02/2022",
-    concept: "Complex Flexbox",
-    entry:
-      "I tried to have an element in my Flexbox layout also be another Flexbox layout. It hurt my brain. I hate Steve.",
-    mood: "Excited",
-  },
-  {
-    id: 3,
-    date: "08/03/2022",
-    concept: "CSS Grid layout",
-    entry:
-      "I practiced some CSS grid layout and HTML. It was very interesting to learn about grid layout.",
-    mood: "Happy",
-  },
-  {
-    id: 4,
-    date: "08/04/2022",
-    concept: "Javascript basics",
-    entry: "I was learning and practising javascript basics.",
-    mood: "Happy",
-  },
-  {
-    id: 5,
-    date: "08/04/2022",
-    concept: "Javascript Loops",
-    entry: "I was practising javascript basics and loops",
-    mood: "Excited",
-  },
-  {
-    id: 6,
-    date: "08/05/2022",
-    concept: "Javascript Data Structures",
-    entry: "Learning about Javascript data structures - arrays and objects",
-    mood: "Happy",
-  },
-  {
-    id: 7,
-    date: "08/05/2022",
-    concept: "Parctising Daily Journal part 2",
-    entry: "Implementing javascript in daily journal project",
-    mood: "Excited",
-  },
-];
+import { getJournalEntries } from "./entries.js";
+import { splitArray } from "./utilities.js";
 
-console.log("-----------All Entries------------------------------");
+const createElement = (elementName, cssId, cssClass, content) => {
+  let htmlElement = document.createElement(`${elementName}`);
+  if (cssId.trim()) htmlElement.id = cssId.trim();
+  if (cssClass.trim()) htmlElement.className = cssClass.trim();
+  if (content.trim()) htmlElement.textContent = content.trim();
 
-for (const entry of journalEntries) {
-  console.log(entry);
-}
+  return htmlElement;
+};
 
-console.log("-----------Title------------------------------");
+const previousEntriesParent = document.getElementById(`entries`);
 
-for (const entry of journalEntries) {
-  console.log("title: " + entry.concept);
-}
+const previousEntriesParentContainer = createElement(
+  `div`,
+  ``,
+  `previous-entries-parent-container`,
+  ``
+);
+previousEntriesParent.appendChild(previousEntriesParentContainer);
 
-console.log("-----------Odd Entries------------------------------");
-for (const entry of journalEntries) {
-  if (entry.id % 2 !== 0) {
-    console.log(entry);
+const previousEntriesTitle = createElement(
+  `div`,
+  ``,
+  `previous-entries-title`,
+  ``
+);
+previousEntriesParentContainer.appendChild(previousEntriesTitle);
+
+const previousEntriesTitleH2 = createElement(`h2`, ``, ``, `Previous Entries`);
+previousEntriesTitle.appendChild(previousEntriesTitleH2);
+
+const previousEntriesCardsContainer = createElement(
+  `div`,
+  ``,
+  `previous-entries-cards-container`,
+  ``
+);
+previousEntriesParentContainer.appendChild(previousEntriesCardsContainer);
+
+const journalEntries = getJournalEntries();
+
+const chunckedEntries = splitArray(journalEntries, 3, false);
+// console.log(chunckedEntries);
+
+for (let i = 0; i < chunckedEntries.length; i++) {
+  // console.log(`main loop ${chunckedEntries.length}`);
+  // console.log(`main loop iter:${i} item: ${chunckedEntries[i]}`);
+
+  const previousEntriesCardItemsContainer = createElement(
+    `div`,
+    ``,
+    `previous-entries-card-items-container`,
+    ``
+  );
+  previousEntriesCardsContainer.appendChild(previousEntriesCardItemsContainer);
+
+  for (let j = 0; j < chunckedEntries[i].length; j++) {
+    // console.log(chunckedEntries[i].length);
+    // console.log(chunckedEntries[i][j]);
+    // console.log(`inner loop iter: ${j} item: ${chunckedEntries[j]}`);
+
+    const previousEntriesCardItem = createElement(
+      `div`,
+      ``,
+      `previous-entries-card-item${j + 1}`,
+      ``
+    );
+    previousEntriesCardItemsContainer.appendChild(previousEntriesCardItem);
+
+    const previousEntriesCardComponentContainer = createElement(
+      `div`,
+      ``,
+      `previous-entries-card-component-container`,
+      ``
+    );
+    previousEntriesCardItem.appendChild(previousEntriesCardComponentContainer);
+
+    const previousEntriesCardComponentTitle = createElement(
+      `div`,
+      ``,
+      `previous-entries-card-component-title`,
+      `${chunckedEntries[i][j].concept}`
+    );
+    previousEntriesCardComponentContainer.appendChild(
+      previousEntriesCardComponentTitle
+    );
+
+    const previousEntriesCardComponentDate = createElement(
+      `div`,
+      ``,
+      `previous-entries-card-component-date`,
+      `${chunckedEntries[i][j].date}`
+    );
+    previousEntriesCardComponentContainer.appendChild(
+      previousEntriesCardComponentDate
+    );
+
+    const previousEntriesCardComponentMood = createElement(
+      `div`,
+      ``,
+      `previous-entries-card-component-mood`,
+      `${chunckedEntries[i][j].mood}`
+    );
+    previousEntriesCardComponentContainer.appendChild(
+      previousEntriesCardComponentMood
+    );
+
+    const previousEntriesCardComponentContentDetails = createElement(
+      `div`,
+      ``,
+      `previous-entries-card-component-content-details`,
+      `${chunckedEntries[i][j].entry}`
+    );
+    previousEntriesCardComponentContainer.appendChild(
+      previousEntriesCardComponentContentDetails
+    );
   }
 }
 
-// Intro to Data Relationship Practice
-
-console.log("--------Intro to Data Relationship Practice-------------");
-
-const states = [
-  {
-    id: 1,
-    stateCode: "IL",
-    stateName: "Illinois",
-  },
-  {
-    id: 2,
-    stateCode: "TN",
-    stateName: "Tennessee",
-  },
-  {
-    id: 3,
-    stateCode: "CA",
-    stateName: "California",
-  },
-  {
-    id: 4,
-    stateCode: "MN",
-    stateName: "Minnesota",
-  },
-  {
-    id: 5,
-    stateCode: "FL",
-    stateName: "Florida",
-  },
-];
-
-const cities = [
-  {
-    id: 1,
-    cityName: "Chicago",
-    stateId: "1",
-  },
-  {
-    id: 2,
-    cityName: "Nashville",
-    stateId: "2",
-  },
-  {
-    id: 3,
-    cityName: "Los Angeles",
-    stateId: "3",
-  },
-  {
-    id: 4,
-    cityName: "Minneapolis",
-    stateId: "4",
-  },
-  {
-    id: 5,
-    cityName: "Memphis",
-    stateId: "2",
-  },
-  {
-    id: 6,
-    cityName: "Champagne",
-    stateId: "1",
-  },
-  {
-    id: 7,
-    cityName: "San Francisco",
-    stateId: "3",
-  },
-  {
-    id: 8,
-    cityName: "Knoxville",
-    stateId: "2",
-  },
-  {
-    id: 9,
-    cityName: "Orlando",
-    stateId: "5",
-  },
-];
-
-for (const city of cities) {
-  console.log(`${city.cityName}, ${states[city.stateId].stateCode}`);
-}
+const previousEntriesSidebar = createElement(
+  `div`,
+  ``,
+  `previous-entries-sidebar`,
+  ``
+);
+previousEntriesParentContainer.appendChild(previousEntriesSidebar);
