@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daily Journal</title>
+    <link href="./styles/main.css" rel="stylesheet" />
+  </head>
+  <body>
+    <h2 class="journal__title">Daily Journal</h2>
+    <main id="container">
+      <form class="entryForm">
+        <fieldset class="entryForm__date">
+          <label class="entryForm__date__label" for="entryDate"
+            >Date of entry</label
+          >
+          <input type="date" name="entryDate" class="entryForm__date__input" />
+        </fieldset>
+        <fieldset class="entryForm__conceptsCovered">
+          <label
+            class="entryForm__conceptsCovered__label"
+            for="entryConceptsCovered"
+            >Concepts covered</label
+          >
+          <input
+            type="text"
+            name="entryConceptsCovered"
+            class="entryForm__conceptsCovered__input"
+          />
+        </fieldset>
+        <fieldset class="entryForm__journalEntry">
+          <label class="entryForm__journalEntry__label" for="entryJournalEntry"
+            >Journal Entry</label
+          >
+          <textarea
+            id="entryJournalEntry"
+            name="entryJournalEntry"
+            rows="5"
+            cols="33"
+            class="entryForm__journalEntry__textarea"
+          ></textarea>
+        </fieldset>
+        <fieldset class="entryForm__moodForTheDay">
+          <label
+            class="entryForm__moodForTheDay__label"
+            for="entryMoodForTheDay"
+            >Mood for the day</label
+          >
+          <select
+            name="entryMoodForTheDay"
+            id="entryMoodForTheDay"
+            class="entryForm__moodForTheDay__select"
+          >
+            <option value="">--Please choose an option--</option>
+            <option value="happy">Happy</option>
+            <option value="sad">Sad</option>
+            <option value="anxious">Anxious</option>
+            <option value="irritable">Irritable</option>
+          </select>
+        </fieldset>
+        <input
+          type="button"
+          value="Record Journal Entry"
+          class="entryForm__button"
+        />
+      </form>
+      <article id="entries"></article>
+    </main>
+    <script src="./scripts/main.js"></script>
+  </body>
+</html>

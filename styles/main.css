@@ -1,0 +1,93 @@
+@import url("https://fonts.googleapis.com/css?family=Comfortaa|Patua+One");
+/*Typography
+--------------------------------------------------------------*/
+body,
+button,
+input,
+select,
+textarea {
+  color: #404040;
+  font-family: "Comfortaa", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  background-color: #ebecfa;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Patua One", serif;
+  letter-spacing: 2px;
+}
+
+.journal__title {
+  text-align: center;
+  background-color: #010317;
+  font-weight: 700;
+  color: azure;
+}
+
+.entryForm {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 1rem;
+  background-color: #727ffc;
+  padding: 1rem;
+  color: azure;
+  border: ;
+}
+
+.entryForm__date,
+.entryForm__conceptsCovered,
+.entryForm__journalEntry,
+.entryForm__moodForTheDay {
+  align-content: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 25px;
+  min-width: 90vw;
+}
+
+.entryForm__date__label,
+.entryForm__conceptsCovered__label,
+.entryForm__journalEntry__label,
+.entryForm__moodForTheDay__label {
+  align-content: flex-start;
+  min-width: 20vw;
+}
+.entryForm__date__input,
+.entryForm__conceptsCovered_input,
+.entryForm__journalEntry__textarea,
+.entryForm__moodForTheDay__select {
+  align-content: flex-start;
+  min-width: 50vw;
+}
+
+/* .entryForm__conceptsCovered,
+.entryForm__journalEntry,
+.entryForm__moodForTheDay,
+.entryForm__conceptsCovered__label {
+  align-content: center;
+  align-self: center;
+  align-items: center;
+  width: 60vw;
+  padding: 1rem;
+} */
+
+.entryForm__button {
+  text-align: center;
+  align-content: center;
+  align-self: center;
+  background-color: #010317;
+  color: azure;
+  border-radius: 2rem;
+  padding: 0.5rem;
+  margin: 1rem;
+}
