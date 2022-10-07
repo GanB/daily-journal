@@ -1,4 +1,5 @@
-import { getJournalEntries } from "./entries.js";
+// import { getJournalEntries } from "./entries.js";
+import { getJournalEntries, sendRequest } from "./dataAccess.js";
 import { splitArray } from "./utilities.js";
 
 const createElement = (elementName, cssId, cssClass, content) => {
@@ -10,8 +11,14 @@ const createElement = (elementName, cssId, cssClass, content) => {
   return htmlElement;
 };
 
-const previousEntriesParent = document.getElementById(`entries`);
+const removeAllChildNodes = (parent) => {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+};
 
+const mainContainer = document.querySelector("#container");
+const previousEntriesParent = document.getElementById(`entries`);
 const previousEntriesParentContainer = createElement(
   `div`,
   ``,
@@ -39,86 +46,87 @@ const previousEntriesCardsContainer = createElement(
 );
 previousEntriesParentContainer.appendChild(previousEntriesCardsContainer);
 
-const journalEntries = getJournalEntries();
+const renderPreviousEntries = async () => {
+  // console.log(chunckedEntries);
+  removeAllChildNodes(previousEntriesCardsContainer);
+  const journalEntries = await getJournalEntries();
+  const chunckedEntries = splitArray(journalEntries, 3, false);
 
-const chunckedEntries = splitArray(journalEntries, 3, false);
-// console.log(chunckedEntries);
+  for (let i = 0; i < chunckedEntries.length; i++) {
+    // console.log(`main loop ${chunckedEntries.length}`);
+    // console.log(`main loop iter:${i} item: ${chunckedEntries[i]}`);
 
-for (let i = 0; i < chunckedEntries.length; i++) {
-  // console.log(`main loop ${chunckedEntries.length}`);
-  // console.log(`main loop iter:${i} item: ${chunckedEntries[i]}`);
-
-  const previousEntriesCardItemsContainer = createElement(
-    `div`,
-    ``,
-    `previous-entries-card-items-container`,
-    ``
-  );
-  previousEntriesCardsContainer.appendChild(previousEntriesCardItemsContainer);
-
-  for (let j = 0; j < chunckedEntries[i].length; j++) {
-    // console.log(chunckedEntries[i].length);
-    // console.log(chunckedEntries[i][j]);
-    // console.log(`inner loop iter: ${j} item: ${chunckedEntries[j]}`);
-
-    const previousEntriesCardItem = createElement(
+    const previousEntriesCardItemsContainer = createElement(
       `div`,
       ``,
-      `previous-entries-card-item${j + 1}`,
+      `previous-entries-card-items-container`,
       ``
     );
-    previousEntriesCardItemsContainer.appendChild(previousEntriesCardItem);
-
-    const previousEntriesCardComponentContainer = createElement(
-      `div`,
-      ``,
-      `previous-entries-card-component-container`,
-      ``
-    );
-    previousEntriesCardItem.appendChild(previousEntriesCardComponentContainer);
-
-    const previousEntriesCardComponentTitle = createElement(
-      `div`,
-      ``,
-      `previous-entries-card-component-title`,
-      `${chunckedEntries[i][j].concept}`
-    );
-    previousEntriesCardComponentContainer.appendChild(
-      previousEntriesCardComponentTitle
+    previousEntriesCardsContainer.appendChild(
+      previousEntriesCardItemsContainer
     );
 
-    const previousEntriesCardComponentDate = createElement(
-      `div`,
-      ``,
-      `previous-entries-card-component-date`,
-      `${chunckedEntries[i][j].date}`
-    );
-    previousEntriesCardComponentContainer.appendChild(
-      previousEntriesCardComponentDate
-    );
+    for (let j = 0; j < chunckedEntries[i].length; j++) {
+      const previousEntriesCardItem = createElement(
+        `div`,
+        ``,
+        `previous-entries-card-item${j + 1}`,
+        ``
+      );
+      previousEntriesCardItemsContainer.appendChild(previousEntriesCardItem);
 
-    const previousEntriesCardComponentMood = createElement(
-      `div`,
-      ``,
-      `previous-entries-card-component-mood`,
-      `${chunckedEntries[i][j].mood}`
-    );
-    previousEntriesCardComponentContainer.appendChild(
-      previousEntriesCardComponentMood
-    );
+      const previousEntriesCardComponentContainer = createElement(
+        `div`,
+        ``,
+        `previous-entries-card-component-container`,
+        ``
+      );
+      previousEntriesCardItem.appendChild(
+        previousEntriesCardComponentContainer
+      );
 
-    const previousEntriesCardComponentContentDetails = createElement(
-      `div`,
-      ``,
-      `previous-entries-card-component-content-details`,
-      `${chunckedEntries[i][j].entry}`
-    );
-    previousEntriesCardComponentContainer.appendChild(
-      previousEntriesCardComponentContentDetails
-    );
+      const previousEntriesCardComponentTitle = createElement(
+        `div`,
+        ``,
+        `previous-entries-card-component-title`,
+        `${chunckedEntries[i][j].concept}`
+      );
+      previousEntriesCardComponentContainer.appendChild(
+        previousEntriesCardComponentTitle
+      );
+
+      const previousEntriesCardComponentDate = createElement(
+        `div`,
+        ``,
+        `previous-entries-card-component-date`,
+        `${chunckedEntries[i][j].date}`
+      );
+      previousEntriesCardComponentContainer.appendChild(
+        previousEntriesCardComponentDate
+      );
+
+      const previousEntriesCardComponentMood = createElement(
+        `div`,
+        ``,
+        `previous-entries-card-component-mood`,
+        `${chunckedEntries[i][j].mood}`
+      );
+      previousEntriesCardComponentContainer.appendChild(
+        previousEntriesCardComponentMood
+      );
+
+      const previousEntriesCardComponentContentDetails = createElement(
+        `div`,
+        ``,
+        `previous-entries-card-component-content-details`,
+        `${chunckedEntries[i][j].entry}`
+      );
+      previousEntriesCardComponentContainer.appendChild(
+        previousEntriesCardComponentContentDetails
+      );
+    }
   }
-}
-
+};
 const previousEntriesSidebar = createElement(
   `div`,
   ``,
@@ -126,3 +134,36 @@ const previousEntriesSidebar = createElement(
   ``
 );
 previousEntriesParentContainer.appendChild(previousEntriesSidebar);
+
+renderPreviousEntries();
+
+mainContainer.addEventListener("click", (clickEvent) => {
+  if (clickEvent.target.id === "submitRequest") {
+    // Get what the user typed into the form fields
+    const entryDate = document.querySelector("input[name='entryDate']").value;
+    const entryConceptsCovered = document.querySelector(
+      "input[name='entryConceptsCovered']"
+    ).value;
+    const entryJournalEntry = document.querySelector(
+      "textarea[name='entryJournalEntry']"
+    ).value;
+    const entryMoodForTheDay = document.querySelector(
+      "select[name='entryMoodForTheDay']"
+    ).value;
+
+    // Make an object out of the user input
+    const dataToSendToAPI = {
+      date: entryDate,
+      concept: entryConceptsCovered,
+      entry: entryJournalEntry,
+      mood: entryMoodForTheDay,
+    };
+
+    // Send the data to the API for permanent storage
+    sendRequest(dataToSendToAPI);
+  }
+});
+
+mainContainer.addEventListener("stateChanged", (customEvent) => {
+  renderPreviousEntries();
+});
