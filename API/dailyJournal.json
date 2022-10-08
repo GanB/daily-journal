@@ -1,0 +1,39 @@
+{
+  "journalEntries": [
+    {
+      "id": 1,
+      "date": "2022-08-01",
+      "concept": "graph ql",
+      "entry": "I was learning about CSS styling selectors",
+      "mood": "Happy"
+    },
+    {
+      "id": 3,
+      "date": "2022-08-03",
+      "concept": "CSS Grid layout",
+      "entry": "I practiced some CSS grid layout and HTML. It was very interesting to learn about grid layout.",
+      "mood": "Happy"
+    },
+    {
+      "id": 7,
+      "date": "2022-08-05",
+      "concept": "c# data structures",
+      "entry": "Implementing javascript in daily journal project",
+      "mood": "Excited"
+    },
+    {
+      "date": "2022-10-05",
+      "concept": "test",
+      "entry": "test",
+      "mood": "excited",
+      "id": 8
+    },
+    {
+      "date": "2022-10-07",
+      "concept": "test",
+      "entry": "test",
+      "mood": "sad",
+      "id": 35
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 const API = "http://localhost:4010";
+const applicationState = { journalEntries: [] };
 
 export const fetchJournalEntries = async () => {
   const dataFetch = await fetch(`${API}/journalEntries`);
@@ -6,8 +7,6 @@ export const fetchJournalEntries = async () => {
   // Store the external state in application state
   applicationState.journalEntries = journalEntries;
 };
-
-const applicationState = { journalEntries: [] };
 
 export const getJournalEntries = async () => {
   await fetchJournalEntries();
@@ -32,44 +31,33 @@ export const sendRequest = async (journalEntryRequest) => {
 
 export const deleteRequest = async (id) => {
   const mainContainer = document.querySelector("#container");
-  await fetch(`${API}/requests/${id}`, { method: "DELETE" });
+  await fetch(`${API}/journalEntries/${id}`, { method: "DELETE" });
   mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
 };
 
-export const fetchPlumbers = async () => {
-  const dataFetch = await fetch(`${API}/plumbers`);
-  const plumbers = await dataFetch.json();
-  applicationState.plumbers = plumbers;
+export const getJournalEntry = async (id) => {
+  // const mainContainer = document.querySelector("#container");
+  return await (
+    await fetch(`${API}/journalEntries/${id}`, { method: "GET" })
+  ).json();
+  // mainContainer.dispatchEvent(new CustomEvent("editModal"));
 };
 
-export const getPlummers = async () => {
-  await fetchPlumbers();
-  return applicationState.plumbers.map((data) => ({ ...data }));
-};
-
-export const saveCompletion = async (data) => {
+export const updateJournalEntry = async (journalEntryRequest) => {
   const fetchOptions = {
-    method: "POST",
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(journalEntryRequest),
   };
 
   const mainContainer = document.querySelector("#container");
-  const response = await fetch(`${API}/completions`, fetchOptions);
+  const response = await fetch(
+    `${API}/journalEntries/${journalEntryRequest.id}`,
+    fetchOptions
+  );
   const responseJson = await response.json();
-  mainContainer.dispatchEvent(new CustomEvent("requestCompleted"));
+  mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
   return responseJson;
-};
-
-export const fetchCompletions = async () => {
-  const dataFetch = await fetch(`${API}/completions`);
-  const serviceRequests = await dataFetch.json();
-  applicationState.completions = serviceRequests;
-};
-
-export const getCompletions = async () => {
-  await fetchCompletions();
-  return applicationState.completions.map((data) => ({ ...data }));
 };

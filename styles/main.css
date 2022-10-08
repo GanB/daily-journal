@@ -1,21 +1,40 @@
 @import url("https://fonts.googleapis.com/css?family=Comfortaa|Patua+One");
 /*Typography
 --------------------------------------------------------------*/
-body,
-button,
+body
+/* button,
 input,
 select,
-textarea {
-  color: #404040;
+text,
+date,
+textarea  */ {
+  color: #0b2237;
   font-family: "Comfortaa", Arial, sans-serif;
   font-size: 14px;
   line-height: 1.5;
-  background-color: #f0dcf7;
-  outline: 0.05rem solid #21295c;
+  background-color: #e6f1fa;
+  /* outline: 0.05rem solid #21295c; */
   margin: 5px;
   padding: 5px;
   border-radius: 20px;
 }
+
+select,
+input[type="text"],
+input[type="date"],
+textarea {
+  color: #0b2237;
+  font-family: "Comfortaa", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  background-color: #e6f1fa;
+  /* outline: 0.05rem solid #21295c; */
+  /* margin: 5px; */
+  /* padding: 5px; */
+  border-radius: 20px;
+  width: 60%;
+}
+
 h1,
 h2,
 h3,
@@ -26,12 +45,16 @@ h6 {
   letter-spacing: 2px;
 }
 
+fieldset {
+  border: 0;
+}
+
 .journal__title {
   text-align: center;
-  background-color: #010317;
+  background-color: rgb(18, 57, 91);
   font-weight: 700;
   color: azure;
-  border-radius: 20px;
+  border-radius: 5px;
   margin: 1rem;
   padding: 0.5rem;
   outline-offset: 0.5rem;
@@ -41,13 +64,13 @@ h6 {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   gap: 1rem;
-  background-color: #727ffc;
+  /* background-color: #727ffc; */
   padding: 1rem;
   margin: 1rem;
-  color: azure;
+  /* color: azure; */
   border-radius: 20px;
 }
 
@@ -61,9 +84,9 @@ h6 {
   justify-content: flex-start;
   align-items: flex-start;
   gap: 25px;
-  min-width: 90vw;
-  border-radius: 20px;
-  border-color: #010317;
+  min-width: 90%;
+  /* border-radius: 20px;
+  border-color: #010317; */
 }
 
 .entryForm__date__label,
@@ -71,30 +94,51 @@ h6 {
 .entryForm__journalEntry__label,
 .entryForm__moodForTheDay__label {
   align-content: flex-start;
-  min-width: 20vw;
+  min-width: 20%;
+  font-weight: 800;
+  font-size: large;
+  color: #0b2237;
 }
 .entryForm__date__input,
-.entryForm__conceptsCovered_input,
+.entryForm__conceptsCovered__input,
 .entryForm__journalEntry__textarea,
 .entryForm__moodForTheDay__select {
   align-content: flex-start;
-  min-width: 50vw;
+  min-width: 50%;
   border-radius: 20px;
+  font-size: 14px;
+  line-height: 1.5;
+  /* background-color: #e6f1fa; */
+  /* margin: 5px; */
+  padding: 5px;
+  border-radius: 20px;
+  min-width: 50%;
+  border-width: 0.15rem;
 }
 
 .entryForm__button {
   text-align: center;
   align-content: center;
   align-self: center;
-  background-color: #010317;
+  background-color: rgb(18, 57, 91);
   color: azure;
   border-radius: 20px;
-  padding: 0.5rem;
+  padding: 0.75rem;
   margin: 1rem;
+  font-weight: 700;
+  width: 15%;
 }
 
 .previous-entries-title {
-  grid-area: header;
+  text-align: center;
+  background-color: rgb(18, 57, 91);
+  font-weight: 700;
+  color: azure;
+  border-radius: 5px;
+  margin: 1rem;
+  padding: 0.5rem;
+  outline-offset: 0.5rem;
+  /* grid-area: header;
   text-align: center;
   margin: 1rem;
   padding: 0.5rem;
@@ -102,105 +146,75 @@ h6 {
   border-radius: 20px;
   background-color: #010317;
   font-weight: 700;
-  color: azure;
+  color: azure; */
 }
-.previous-entries-sidebar {
-  grid-area: sidebar;
-  background-color: #727ffc;
-  /* min-width: 25vw; */
-  min-height: fit-content;
-  margin: 1rem;
-  padding: 0.5rem;
-  outline-offset: 0.5rem;
-  /* outline: 0.15rem solid #21295c; */
-  box-shadow: 0 0 0 0.1rem #c2cfd8;
-  border-radius: 20px;
-}
+
 .previous-entries-cards-container {
-  grid-area: main;
-  background-color: #abb2f5;
+  /* grid-area: main; */
+  /* background-color: #abb2f5; */
   /* min-width: 75vw; */
   /* min-height: fit-content; */
   margin: 1rem;
   padding: 0.5rem;
-  outline-offset: 0.5rem;
+  /* outline-offset: 0.5rem;
   outline: 0.05rem solid #21295c;
-  box-shadow: 0 0 0 0.01rem #c2cfd8;
-  border-radius: 20px;
+  box-shadow: 0 0 0 0.01rem #c2cfd8; */
+  /* border-radius: 20px; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
-.previous-entries-parent-container {
+.previous-entries-card-item {
+  flex-basis: 25%;
+  flex-grow: 2;
+  /* grid-area: card; */
+  background-color: gold;
+  text-align: center;
+  justify-self: stretch;
+  align-self: stretch;
+  min-height: 50%;
+
+  padding: 5px;
+  margin: 5px;
+  /* border-radius: 25% 10%; */
+  /* transition: all 1s ease; */
+  /* justify-self: stretch;
+  align-self: center; */
+}
+
+.previous-entries-card-component-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: auto;
+  grid-template-columns: 1fr 0.1fr 0.1fr;
+  grid-template-rows: repeat(4, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
   grid-template-areas:
-    "header header header header"
-    "sidebar main main main";
-}
-
-.previous-entries-card-item1 {
-  grid-area: card1;
-  background-color: gold;
-  text-align: center;
-  justify-self: stretch;
-  align-self: stretch;
-  height: fit-content;
-  padding: 5px;
-  margin: 5px;
-  border-radius: 25% 10%;
-  transition: all 1s ease;
-  justify-self: stretch;
-  align-self: center;
-}
-
-.previous-entries-card-item2 {
-  grid-area: card2;
-  background-color: gold;
-  text-align: center;
-  justify-self: stretch;
-  align-self: stretch;
-  height: fit-content;
-  padding: 5px;
-  margin: 5px;
-  border-radius: 25% 10%;
-  transition: all 1s ease;
-  justify-self: stretch;
-  align-self: center;
-}
-
-.previous-entries-card-item3 {
-  grid-area: card3;
-  background-color: gold;
-  text-align: center;
-  justify-self: stretch;
-  align-self: stretch;
-  height: fit-content;
-  padding: 5px;
-  margin: 5px;
-  border-radius: 25% 10%;
-  transition: all 1s ease;
-  justify-self: stretch;
-  align-self: center;
-}
-
-.previous-entries-card-item1:hover,
-.previous-entries-card-item2:hover,
-.previous-entries-card-item3:hover {
-  border-radius: 0;
-}
-
-.previous-entries-card-items-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto;
-  grid-template-areas: "card1 card2 card3";
-  column-gap: 20px;
-  row-gap: 20px;
+    "title edit delete"
+    "date . ."
+    "mood . ."
+    "content-details . .";
 }
 
 .previous-entries-card-component-title {
   grid-area: title;
   font-weight: 900;
+  font-size: larger;
+  justify-self: center;
+  align-self: center;
+}
+.previous-entries-card-component-edit {
+  grid-area: edit;
+  font-weight: 500;
+  font-size: larger;
+  justify-self: center;
+  align-self: center;
+}
+.previous-entries-card-component-delete {
+  grid-area: delete;
+  font-weight: 500;
   font-size: larger;
   justify-self: center;
   align-self: center;
@@ -230,15 +244,9 @@ h6 {
   align-self: center;
 }
 
-.previous-entries-card-component-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(4, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  grid-template-areas:
-    "title"
-    "date"
-    "mood"
-    "content-details";
+[id^="deleteEntry"],
+[id^="editEntry"],
+[id^="submitRequest"],
+[id^="updateRequest"] {
+  cursor: pointer;
 }
